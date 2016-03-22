@@ -296,9 +296,10 @@
 		width: 100%;
 	}
 	#d3 a {
-		color: inherit; 
+		display: block;
 		position: absolute;
-		width: 100%;
+		width: 200px;
+		height: 200px;
 	}
 	#d3 .flipCard {
 		display: inline-block;
@@ -484,14 +485,14 @@
 				break;
 		}
 		//document.getElementById('center').scrollTop = scrollHere;
-		myScroll(scrollHere);
+		functionScroll(scrollHere);
 	});
-	function myScroll(scrollHere) {
+	function functionScroll(scrollHere) {
 		var elem = document.getElementById('center').scrollTop;   
 		var dist = scrollHere - elem;
 		var move = setInterval(frame, 5);
 		function frame() {
-			var num = Number(String(1)+new Array(Math.abs(dist).toString().length).join(0));
+			var num = Number('1'+new Array(Math.abs(dist).toString().length).join(0));
 			if (dist > 0) {
 				dist -= num;
 				elem += num;
