@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html>
+  <head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<style>
+	@import url(http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css);
+	@import url(http://fonts.googleapis.com/css?family=Black+Ops+One);
+	html, body {
+		height: 100%;
+		width: 100%;
+		padding: 0;
+		margin: 0;	
+	}
+	html {
+		background: WhiteSmoke; 
+		background-size: cover;
+	}
+	body {
+		perspective: 800px;
+	}
+	::selection {
+		color: rgb(100, 0, 15); 
+		background: white;
+	}
+	/* Scrollbar Features */
+	::-webkit-scrollbar-track {
+		box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+		background-color: #F5F5F5;
+		border-radius: 10px;
+	}
+	::-webkit-scrollbar {
+		width: 10px;
+		background-color: #F5F5F5;
+	}
+	::-webkit-scrollbar-thumb {
+		border-radius: 10px;
+		background-image: -webkit-gradient(linear, left bottom, left top,
+										   color-stop(0.44, rgb(122,153,217)),
+										   color-stop(0.72, rgb(73,125,189)),
+										   color-stop(0.86, rgb(28,58,148)));
+	}
+	/* Consider, does add load time */
+	@font-face {
+		font-family: 'ExistenceLight';
+		src: url('fonts/Existence-Light/Existence-Light.otf') format('opentype');
+	}
+	@font-face {
+		font-family: 'Bebas';
+		src: url('fonts/Bebas/BebasNeue Book.otf') format('opentype');
+	}
+
+
+
+
+	
+	/* Icon Menu */
+	#menu {
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		width: 5%;
+		padding-top: 1%;
+		border-right: 1px solid #ddd;
+		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3),
+					0 0 20px rgba(0, 0, 0, 0.1) inset;
+		font-size: 2.5vmin;
+		text-align: center;
+	}
+	#menu span {
+		position: relative; 
+		width: 100%;
+		color: white;
+		text-shadow: 0 0 2px #004499;
+		cursor: pointer;
+	}
+	#menu .fa:hover {
+		text-shadow: 0px 0px 5px #FFFFFF,
+					 1px 1px 1px black,
+					 0 0 2px #004499;
+	}
+	#menu #space {
+		display: none;
+		float: left;
+		clear: both;
+		height: 78%;
+		cursor: inherit;	
+	}
+	/* About the website */
+	#menu #tag1, #menu #tag2 {
+		display: block;
+		position: absolute;
+		bottom: 13%;
+		text-align: center;
+		transform: rotate(-90deg); 
+		white-space: nowrap;
+		color: white;
+		text-shadow: 0 0 2px #004499;
+		font-family: 'Bebas';
+		font-size: 200%;
+		font-weight: bold;
+		transition: visibility 0.1s, opacity 0.5s linear;
+	}
+	#menu #i1 {
+		position: absolute;
+		left: 100%;
+		bottom: 0;
+		width: 250%;
+		transition: visibility 0.2s, opacity 0.5s ease-in;
+	}
+	#menu #i2 {
+		display: block;
+		position: absolute;
+		margin: 0 auto;
+		left: 10%;
+		right: 10%;
+		bottom: 2%;
+		width: 60%;
+	}
+	#menu #tag1,
+	#menu #container:hover #tag2,
+	#menu #container:active #tag1, 
+	#menu #container:hover #i1 {
+		visibility: visible;
+		opacity: 1;
+	}
+	#menu #tag2,
+	#menu #i1,
+	#menu #container:hover #tag1, 
+	#menu #container:active #tag2,
+	#menu #container:active #i1	{
+		visibility: hidden;
+		opacity: 0;
+	}
+	
+	
+	
+	/* Left Side: Flyout */
+	#left {
+		display: none;
+		position: absolute;
+		top: 13%;
+		bottom: 20%;
+		left: 4%;
+		width: 13%;
+	}
+	#left button {
+		float: left;
+		clear: both;
+		width: 100%;
+		padding: 5%;
+		margin: 3% 0 7% 0;
+		border: 1px solid #ddd;
+		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3),
+					0 0 20px rgba(0, 0, 0, 0.1) inset;
+		background: rgba(255,255,255,0.7);
+		cursor: pointer;
+		outline: 0;
+		font-family: 'Black Ops One';
+		font-size: 100%;
+		font-variant: small-caps; 
+		animation: loadButton 1000ms reverse;
+		transform: rotateX(-25deg);
+	}
+	#left button:hover {
+		transition: all 0.3s;
+		transform: rotateX(0deg);
+	}
+	#left button:active {
+		transform: scale(.90);
+	}
+	/* Button Animation */
+	#b1 {
+		animation-delay: -600ms;
+	}
+	#b2 {
+		animation-delay: -300ms;
+	}
+	@keyframes loadButton {
+		100% {
+			padding: unset;
+			margin: unset;
+			border: none;
+			box-shadow: unset;
+			background: transparent;
+		}
+	}
+	/* Smoke Animation */
+	.smoke {
+		color: transparent;
+	}
+	.smoke span {
+		animation: smoke forwards;
+		animation-delay: 300ms;
+	}
+	.smoke span:nth-child(n) {
+		animation-duration: 1000ms;
+	}
+	.smoke span:nth-child(2n) {
+		animation-duration: 900ms;
+	}
+	.smoke span:nth-child(3n) {
+		animation-duration: 1100ms;
+	}
+	.smoke span:nth-child(4n) {	
+		animation-duration: 700ms;
+	}
+	.smoke span:nth-child(5n) {
+		animation-duration: 800ms;
+	}
+	@keyframes smoke {
+		0%	 {text-shadow: 0 -50px 20px black;}
+		90%	 {text-shadow: 0 -20px 50px black;}
+		100% {text-shadow: 0 0 0 black;}
+	}
+
+	
+	
+	/* Center */
+	#center {
+		position: absolute;
+		top: 0px;
+		bottom: 0px;
+		left: 5%;
+		right: 0;
+		overflow-y: auto;
+	}
+	/* Switch Animation */
+	.switch {
+		animation: switchAni 1000ms;
+	}
+	@keyframes switchAni {
+		20%	 {transform: translateZ(-500px);}
+		50%	 {transform: translateZ(-500px) translateY(-200%);}
+		51%	 {transform: translateZ(-500px) translateY(200%);}
+		100% {transform: translateZ(0);}
+	}
+	
+	
+	
+	
+	/* Display Titles */
+	#d1Title {
+		color: white;
+		font-family: 'Bebas';
+		font-size: 700%;
+		font-weight: bold;
+		margin-right: 38%;
+		padding: 2.5%
+		
+	}
+	#d3Title {
+		color: white;
+		font-family: 'Bebas';
+		font-size: 400%;
+		padding: 2.5%;
+	}
+	#d2Title, #d4Title {
+		color: #006699;
+		font-family: 'Bebas';
+		font-size: 400%;
+		padding: 2.5% 0;
+	}
+	#d4Title {
+		margin: 0 auto;
+	}
+	
+	
+	
+	/* Display 1 */
+	#d1 {
+		height: 100%;
+		background: linear-gradient(-141deg, 
+									#006699 0%, 
+									#1FC8DB 45%, 
+									#2CB5E8 50%,
+									transparent 50%), 
+					url(images/sunrise.jpg) no-repeat 25%;
+		text-align: center;
+	}
+	/* Display 2 */
+	#d2 {
+		padding-left: 5%;
+		font-size: 100%;
+		background: url(images/bg.png) no-repeat;
+		background-position: center center;
+		background-size: cover;
+		overflow: auto;
+	}
+	/* Display 3 */
+	#d3 {
+		background: #006699;
+		width: 100%;
+		text-align: center;
+	}
+	#d3 img {
+		width: 100%;
+	}
+	#d3 a {
+		color: inherit; 
+		position: absolute;
+		width: 100%;
+	}
+	#d3 .flipCard {
+		display: inline-block;
+		position: relative;
+		padding-bottom: 200px;
+		width: 200px;
+		margin: 0 auto 5%;
+	}
+	#d3 #front,	#d3 #back {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		-webkit-backface-visibility: hidden;
+		transition: transform 0.3s;
+		border-radius: 15%;
+	}
+	#d3 #front {
+	}
+	#d3 #back {
+		transform: rotateY(-180deg);
+		padding: 10%;
+		border: 1px solid #ddd;
+		background: #f9f9f9;
+	}
+	#d3 .flipCard:hover #front {
+		transform: rotateY(-180deg);
+	}
+	#d3 .flipCard:hover #back {
+		transform: rotateY(0);
+	}
+	#d3 .flipCard:active #front {
+		transform: rotateY(0);
+	}
+	#d3 .flipCard:active #back {
+		transform: rotateY(-180deg);
+	}
+	/* Emphasize Animation */
+	#d3 .flipCard:active {
+		animation: emphasize 0.5s;
+	}
+	@keyframes emphasize {
+		0%   {transform:scale(1,1);}
+		50%  {transform:scale(1.1,1);}
+		100% {transform:scale(1,1);}
+	}	
+	/* Display 4 */
+	#d4 {
+		height: 100%;
+		text-align: center;
+	}
+	#d4 canvas {
+		height: 100%;
+		width: 100%;
+	}
+	</style>
+  </head>
+  <body>
+	<!--Center-->
+	<div id="center">
+	  <!--First Display: Title Page-->
+	  <div id="d1">
+		<div id="d1Title">Rising with the Sun</div>
+	  </div>
+	  <!--Second Display-->
+	  <div id="d2">
+		<div id="d2Title">The Resume</div>
+	  </div>
+	  <!--Third Display: Flip Card Links-->
+	  <div id="d3">
+		<div id="d3Title">My Social Links</div>
+		<div id="card1" class="flipCard">
+		  <div id="back">
+			<div style="font-weight: bold;">Github</div>
+			<div>Vicidomini</div>
+		  </div>
+		  <div id="front">
+			<img src="images/github.png" alt="Github Image">
+		  </div>
+		  <a href="https://github.com/Vicidomini" target="_blank"></a>
+		</div>
+		<div id="card2" class="flipCard">
+		  <div id="back">
+			<div style="font-weight: bold;">Github</div>
+			<div>Test</div>
+		  </div>
+		  <div id="front">
+			<img src="images/github.png" alt="Github Image">
+		  </div>
+		  <a href="https://github.com/Vicidomini" target="_blank"></a>
+		</div>
+	  </div>
+	  <!--Fourth Display: Web Diagram-->
+	  <div id="d4">
+		<div id="d4Title">About Me</div>
+	    <canvas id="webDiagram"></canvas>
+	  </div>
+	</div>
+	<!--Menu-->
+	<div id="menu">
+	  <span id="open" class="fa fa-bars fa-2x"></span>
+	  <span id="space"></span>
+	  <span id="up" class="fa fa-angle-up fa-3x"></span>
+	  <span id="down" class="fa fa-angle-down fa-3x"></span>
+	  <div id="container">
+		<span id="tag1">By Isaiah Pan</span>
+		<span id="tag2">Designed and developed for Chrome</span>
+		<img id="i1" src="images/isaiah.png" alt="My Image">
+		<img id="i2" src="images/icon2.png" alt="Icon">
+	  </div>
+	</div>
+	<!--Left-->
+	<div id="left">
+  	  <button id="b1" class="smoke">Title</button>
+	  <button id="b2" class="smoke">Resume</button>
+	  <button id="b3" class="smoke">Links</button>
+	  <button id="b4" class="smoke">About</button>
+	</div>	
+	<script>	
+	/* Initial load */
+	var tabN = 1,
+		open = false,
+		tOut, scrollHere;
+	$(document).ready(function(){
+		$('#d2').append($('#resume').html());
+	});
+	/* Add span to string */
+	$('.smoke').html(function (idx, str){
+		return str.replace(/(\w)/g, '<span>$1</span>');
+	});
+	/* Change menu icon */
+	function replaceCog(){
+		$('#open').toggleClass("fa-bars fa-cog fa-spin");
+	}
+	/* Click bars */
+	$('#menu').on('click', '#open', function(){
+		if (document.getElementById('open').classList.contains('fa-spin')){
+			clearTimeout(tOut);
+		} else {
+			replaceCog();
+		}
+		if (open){
+			open = false;
+			tOut = setTimeout(replaceCog, 200);
+		} else {
+			open = true;
+			tOut = setTimeout(replaceCog, 1500);
+		};
+		$('#left').toggle('fast');
+		$('#menu #space, #menu #container').toggle('fast');
+	});
+	/* Click up */
+	$('#menu').on('click', '#up', function(){
+		tabN--;
+		if(tabN <= 0){
+			tabN = 4;
+		}
+		$('#b' + tabN).click();
+	});
+	/* Click down */
+	$('#menu').on('click', '#down', function(){
+		tabN++;
+		if(tabN >= 5){
+			tabN = 1;
+		}
+		$('#b' + tabN).click();
+	});
+	/* Load clicked sections */
+	$('#left').on('click', "button", function(){
+		switch(this.id){
+			case 'b1':
+				scrollHere = document.getElementById('d1').offsetTop;
+				break;
+			case 'b2':
+				scrollHere = document.getElementById('d2').offsetTop;
+				break;
+			case 'b3':
+				scrollHere = document.getElementById('d3').offsetTop;
+				break;
+			case 'b4':
+				scrollHere = document.getElementById('d4').offsetTop;
+				break;
+		}
+		//document.getElementById('center').scrollTop = scrollHere;
+		myScroll(scrollHere);
+	});
+	function myScroll(scrollHere) {
+		var elem = document.getElementById('center').scrollTop;   
+		var dist = scrollHere - elem;
+		var move = setInterval(frame, 5);
+		function frame() {
+			var num = Number(String(1)+new Array(Math.abs(dist).toString().length).join(0));
+			if (dist > 0) {
+				dist -= num;
+				elem += num;
+			} else if (dist < 0) {
+				dist += num;
+				elem -= num; 
+			} else {
+				clearInterval(move);
+			}
+			document.getElementById('center').scrollTop = elem;
+		}
+	}
+	</script>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!--used http://wordtohtml.net/ -->
+	<script type="text/template" id="resume">
+	  <p>Isaiah Pan</p>
+	  <p>(408) 839-1350</p>
+	  <p>isaiahpan@gmail.com</p>
+	  <p>&nbsp;</p>
+	  <p><strong>Summary</strong></p>
+	  <ul>
+	    <li>Start-up experience: worked front end in team-based web-applications</li>
+	    <li>Knows HTML, CSS, JavaScript, jQuery, AJAX, and how to integrate them together with frameworks (Backbone) and servers (Apache)</li>
+	    <li>Programs software using C++, C, Python, Java, and Visual Basic</li>
+	    <li>Can use shell script (Linux/Perl) and understand regular expressions</li>
+	  </ul>
+	  <p>&nbsp;</p>
+	  <p><strong>Professional Experience</strong></p>
+	  <p><em>CSchedule</em>: <em>Start-up, Internship </em>&ndash; San Jose, California (Fall 2015 &ndash; current)</p>
+	  <ul>
+	    <li>Developing a website with a team of seven</li>
+	    <li>Project Primarily Uses: Backbone, MySQL, PHP, and is based on a RESTful API</li>
+	    <li>Tasks: Front end with JavaScript, CSS, HTML, Backbone</li>
+	  </ul>
+	  <p><em>Velur</em>: <em>Web Development</em> &ndash; San Jose, California (Fall 2013)</p>
+	  <ul>
+	    <li>Created a website for a land banker with another developer</li>
+	    <li>Project URL: http://www.celiapan.net</li>
+	    <li>Project Primarily Uses: JavaScript, MongoDB, Python, and Pyramid</li>
+	    <li>Tasks: Graphic design, JavaScript, CSS, HTML</li>
+	  </ul>
+	  <p><em>Coodle</em>:<em> Start-up, Internship</em> &ndash; Taiwan (Summer 2010)</p>
+	  <ul>
+	    <li>A start-up company developing a cloud database with a team of seven</li>
+	  </ul>
+	  <p><em>Leadership </em>&ndash; Waco, Texas: Baylor University (Fall 2007 &ndash; Spring 2009)</p>
+	  <ul>
+	    <li>
+	  	Baylor&rsquo;s Honors Residential Leadership Team
+	  	<ul>
+	  	  <li>Set-up lectures: Invited lecturers, prepared the rooms, arranged catering</li>
+	  	  <li>Gave tours of Baylor&rsquo;s Honors Residential College</li>
+	  	</ul>
+	    </li>
+	  </ul>
+	  <p><em>Cancer research:</em> <em>Internship</em> &ndash; Taiwan (Summer 2006)</p>
+	  <ul>
+	    <li>Tested samples for various strains of cancer</li>
+	  </ul>
+	  <p><em>Teaching </em>&ndash; Taiwan; California; Online (since 2004, High School)</p>
+	  <ul>
+	    <li>Frequently revised essays and other pieces of writing</li>
+	    <li>Tutored High School English and Math as well as a bit of SAT</li>
+	  </ul>
+	  <p>&nbsp;</p>
+	  <p><strong>Education</strong></p>
+	  <p><em>Liberty University </em>&ndash; Online (Current)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+	  <ul>
+	    <li>Pursuing BS Degree: Business Management Information Systems &ndash; Data Networking</li>
+	  </ul>
+	  <p><em>De Anza College</em> &ndash; Cupertino, California (50.5 hours)</p>
+	  <p><em>Baylor University </em>&ndash; Waco, Texas (89 hours)</p>
+	  <ul>
+	    <li>Studied for a BS Degree: Computer Science</li>
+	  </ul>
+	  <p>&nbsp;</p>
+	  <p><strong>Other Activities</strong></p>
+	  <p><em>Church Volunteer</em> &ndash; Waco, Texas: Highland (Fall 2008 &ndash; Spring 2010)</p>
+	  <ul>
+	    <li>Set and cleaned up for the college ministry</li>
+	  </ul>
+	  <p><em>Baylor University Men&rsquo;s Choir</em> &ndash; Waco, Texas: Baylor University (Fall 2006 &ndash; Spring 2008)</p>
+	  <p>&nbsp;</p>
+	</script>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<script>
+	var canvas = document.getElementById("webDiagram"),
+		c = canvas.getContext("2d"),
+		particles = {},
+		particleIndex = 0;
+	
+	canvas.width = document.getElementById("webDiagram").parentElement.clientWidth;
+	canvas.height = document.getElementById("webDiagram").parentElement.clientHeight;
+	var canvasBackground = c.getImageData(0, 0, canvas.width, canvas.height);
+	
+	/* Who I am */
+	var myAttributes = [
+		'Isaiah Pan',
+		'Web designer',
+		'Writer',
+		'Programmer',
+		'Christian',
+		'Loyal',
+		'Bookworm',
+		'Gamer',
+		'Friendly'
+	];
+	/* Particle attributes */
+	/* Create three objects, opening, middle, ending 
+	   to replace particles */
+	function Particle(X, Y){
+		this.x = X;
+		this.y = Y;
+		this.r = 100;
+		this.text = myAttributes[Math.floor(Math.random()*myAttributes.length)];
+		this.color = "hsla(170, 45%, 45%, .7)";
+		this.life = 2;
+		this.opacity = 5;
+		particleIndex++;
+		particles[particleIndex] = this;
+		this.id = particleIndex;
+	}
+	/* Draw instructions */
+	Particle.prototype.draw = function(){	
+		/* Circle gradient */
+		var gradient = c.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r);
+			gradient.addColorStop(0, "transparent");
+			gradient.addColorStop(0.6, "transparent");
+			gradient.addColorStop(0.6, this.color);
+			gradient.addColorStop(1, "rgba(255,255,255,0.01)");
+		/* Create circle */
+		c.fillStyle = gradient;
+		c.beginPath();
+		c.arc(this.x, this.y, this.r, 0, Math.PI*2);
+		c.closePath();
+		c.fill();
+		/* Text style */
+		c.fillStyle = 'green';
+		c.textAlign = 'center';
+		c.textBaseline = 'middle'; 
+		c.font = '40px ExistenceLight';
+		c.fillText(this.text, this.x, this.y, this.r/1.3);
+	}
+	/* Determine glow */
+	Particle.prototype.flux = function(){
+		/* Regex to get opacity */
+		var particleOpacity = Number(this.color.match(/\d+\.?\d{0,9}/g)[3]);
+		particleOpacity += this.opacity;
+		if (this.opacity + particleOpacity >= 1){
+			particleOpacity = 1;
+			this.opacity = -Math.random() * .05;
+		}
+		if (this.opacity + particleOpacity <= 0){
+			particleOpacity = 0;
+			this.opacity = Math.random() * .05;
+			/* Life */
+			this.life--;
+			if (this.life <= 0){
+				delete particles[this.id];
+			}
+		}
+		this.color = "hsla(170, 45%, 45%," + particleOpacity + ")";	
+	}
+	/* Automatic create particle */
+	setInterval(function(){
+		new Particle(Math.floor(Math.random() * (canvas.width - 150) + 75), 
+					 Math.floor(Math.random() * (canvas.height - 150) + 75));
+	}, 1000);
+	/* Set mouse location */
+	canvas.onmousemove = function(e){
+		mouseX = (e.clientX - canvas.getBoundingClientRect().left)
+			* canvas.width/document.getElementById('webDiagram').offsetWidth;
+		mouseY = (e.clientY - canvas.getBoundingClientRect().top)
+			* canvas.height/document.getElementById('webDiagram').offsetHeight;
+	}
+	/* Create particle */
+	canvas.onmousedown = function(){
+		new Particle(mouseX, mouseY);
+	};
+	/* Loop canvas */
+	setInterval(function(){
+		/* Clear canvas */
+		c.globalCompositeOperation = "source-over";
+		c.fillStyle = "transparent";
+		c.putImageData(canvasBackground, 0, 0);
+		c.fillRect(0, 0, canvas.width, canvas.height);
+		c.globalCompositeOperation = "lighter";
+		
+		/* Draw */
+		for (var i in particles){
+			particles[i].draw();
+			particles[i].flux();
+		}
+	}, 30);
+	</script>
+	
+	
+	
+	
+  </body>
+</html>
