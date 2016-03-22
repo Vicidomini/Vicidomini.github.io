@@ -237,7 +237,6 @@
 	
 	
 	
-	
 	/* Display Titles */
 	#d1Title {
 		color: white;
@@ -295,7 +294,7 @@
 	#d3 img {
 		width: 100%;
 	}
-	#d3 a {
+	#d3 .target {
 		display: block;
 		position: absolute;
 		width: 200px;
@@ -356,6 +355,13 @@
 		height: 100%;
 		width: 100%;
 	}
+	
+	
+	
+	/* Copy Field */
+	#copyField {
+		font-size: 0;
+	}
 	</style>
   </head>
   <body>
@@ -380,17 +386,17 @@
 		  <div id="front">
 			<img src="images/github.png" alt="Github Image">
 		  </div>
-		  <a href="https://github.com/Vicidomini" target="_blank"></a>
+		  <a class="target" href="https://github.com/Vicidomini" target="_blank"></a>
 		</div>
 		<div id="card2" class="flipCard">
 		  <div id="back">
-			<div style="font-weight: bold;">Github</div>
-			<div>Test</div>
+			<div style="font-weight: bold;">Gmail</div>
+			<div>isaiahpan@gmail.com</div>
 		  </div>
 		  <div id="front">
-			<img src="images/github.png" alt="Github Image">
+			<img src="images/gmail.png" alt="Gmail Image">
 		  </div>
-		  <a href="https://github.com/Vicidomini" target="_blank"></a>
+		  <div class="target" onclick="copyToClipboard('isaiahpan@gmail.com')"></div>
 		</div>
 	  </div>
 	  <!--Fourth Display: Web Diagram-->
@@ -419,6 +425,9 @@
 	  <button id="b3" class="smoke">Links</button>
 	  <button id="b4" class="smoke">About</button>
 	</div>	
+	<!--Copy Field-->
+	<div id="copyField"></div>
+	<!--Javascript-->
 	<script>	
 	/* Initial load */
 	var tabN = 1,
@@ -434,6 +443,17 @@
 	/* Change menu icon */
 	function replaceCog(){
 		$('#open').toggleClass("fa-bars fa-cog fa-spin");
+	}
+	/* Copy to clipboard */
+	function copyToClipboard(copyThis){
+		document.getElementById('copyField').innerHTML = copyThis;
+		var field = document.getElementById('copyField').firstChild;
+		var range = document.createRange();
+		range.setStart(field, 0);
+		range.setEnd(field, copyThis.length);
+		window.getSelection().removeAllRanges(); // remove all selected content
+		window.getSelection().addRange(range); // add range object to selection;
+		document.execCommand('copy');
 	}
 	/* Click bars */
 	$('#menu').on('click', '#open', function(){
