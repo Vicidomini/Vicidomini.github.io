@@ -723,8 +723,7 @@
 		if (this.opacity + particleOpacity >= 1){
 			particleOpacity = 1;
 			this.opacity = -Math.random() * .05;
-		}
-		if (this.opacity + particleOpacity <= 0){
+		} else if (this.opacity + particleOpacity <= 0){
 			particleOpacity = 0;
 			this.opacity = Math.random() * .05;
 			/* Life */
@@ -735,10 +734,15 @@
 		}
 		this.color = "hsla(170, 45%, 45%," + particleOpacity + ")";	
 	}
-	/* Automatic create particle */
+	/* Automatically create particle */
 	setInterval(function(){
-		new Particle(Math.floor(Math.random() * (canvas.width - 150) + 75), 
-					 Math.floor(Math.random() * (canvas.height - 150) + 75));
+		if (Object.keys(particles).length < 30){
+			new Particle(Math.floor(Math.random() * (canvas.width - 150) + 75), 
+						 Math.floor(Math.random() * (canvas.height- 150) + 75));
+			if (particleIndex > 1000){
+				particleIndex = 0;
+			}
+		}
 	}, 1000);
 	/* Set mouse location */
 	canvas.onmousemove = function(e){
