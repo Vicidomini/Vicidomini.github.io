@@ -282,7 +282,7 @@
 		background: linear-gradient(-141deg, 
 									#006699 0%, 
 									#1FC8DB 45%, 
-									#2CB5E8 50%,
+									#006699 50%,
 									transparent 50%), 
 					url(images/sunrise.jpg) no-repeat 25%;
 		text-align: center;
@@ -373,6 +373,22 @@
 	#copyField {
 		font-size: 0;
 	}
+	
+	/* Message */
+	#message {
+		position: fixed;
+		bottom: 10px;
+		right: 10px;
+		padding: 10px;
+		color: white;
+		border-radius: 50% 0 0 50% / 100px 100px;
+		background: linear-gradient(-141deg, 
+									#006699 0%, 
+									#1FC8DB 90%, 
+									#2CB5E8 100%,
+									transparent 50%);
+		//background: #006699;
+	}
 	</style>
   </head>
   <body>
@@ -404,7 +420,7 @@
 		  </div>
 		  <a class="target" href="https://github.com/Vicidomini" target="_blank"></a>
 		</div>
-		<div id="card2" class="flipCard">
+		<div id="card2" class="flipCard" onclick="message('The email has been copied')">
 		  <div id="back">
 			<div style="font-weight: bold;">Gmail</div>
 			<div>isaiahpan@gmail.com</div>
@@ -469,6 +485,16 @@
 	/* Change menu icon */
 	function replaceCog(){
 		$('#open').toggleClass("fa-bars fa-cog fa-spin");
+	}
+	/* Message function */
+	function message(m){
+		var temp = document.createElement("div");
+		temp.id = 'message';
+		temp.innerHTML = m;
+		document.body.appendChild(temp);
+		setTimeout(function(){
+		   document.body.removeChild(temp);
+		}, 4000);
 	}
 	/* Copy to clipboard */
 	function copyToClipboard(copyThis){
@@ -641,7 +667,7 @@
 	  <p><strong>Education</strong></p>
 	  <p><em>Liberty University </em>&ndash; Online (Current)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
 	  <ul>
-	    <li>Pursuing BS Degree: Business Management Information Systems &ndash; Data Networking</li>
+	    <li>Pursuing BS Degree: Business Management Information Systems &ndash; Gaming Technologies</li>
 	  </ul>
 	  <p><em>De Anza College</em> &ndash; Cupertino, California (50.5 hours)</p>
 	  <p><em>Baylor University </em>&ndash; Waco, Texas (89 hours)</p>
